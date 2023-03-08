@@ -1,3 +1,4 @@
+import { TokenManagementHelper } from "@/helper/token"
 import { validateRequestBodyHelper } from "@/helper/validate"
 import { Router } from "express"
 import { Request, Response } from "express"
@@ -19,14 +20,22 @@ export default (router: Router): void => {
         const { email, password } = req.body
 
         const signinService = new SigninService()
-        await signinService.execute({
+        const user = await signinService.execute({
             email,
             password
         })
+        const tokenInfo = { userId: user.id, email: user.email }
+        const accessToken = TokenManagementHelper.generateToken(tokenInfo)
+        const refreshToken = TokenManagementHelper.generateRefreshToken(tokenInfo)
 
-        res.json({})
+        res.cookie("token", accessToken)
+        res.cookie("refreshToken", refreshToken)
 
-        // res.cookie("token", tokenRequestResult.access_token)
-        // res.cookie("refreshToken", tokenRequestResult.refresh_token)
+        const { password } = user
+
+        res.json({
+
+        })
+
     })
 }
