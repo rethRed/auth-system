@@ -1,0 +1,66 @@
+{
+  "name": "reths-messager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": " jest --watchAll",
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --poll --inspect --exit-child src/index.ts",
+    "production": "npx prisma generate && npx prisma migrate deploy && npm run dev",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rethRed/reths-messager-ddd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rethRed/reths-messager-ddd/issues"
+  },
+  "homepage": "https://github.com/rethRed/reths-messager-ddd#readme",
+  "devDependencies": {
+    "@prisma/client": "^4.10.1",
+    "@swc/core": "^1.3.36",
+    "@swc/jest": "^0.2.24",
+    "@types/cors": "^2.8.13",
+    "@types/dotenv": "^8.2.0",
+    "@types/express-rate-limit": "^6.0.0",
+    "@types/express-validator": "^3.0.0",
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.14.0",
+    "@types/sqlite3": "^3.1.8",
+    "jest": "^29.4.3",
+    "prisma": "^4.10.1",
+    "sqlite3": "^5.1.4",
+    "ts-jest": "^29.0.5",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.1.2",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@types/cookie-parser": "^1.4.3",
+    "@types/dockerode": "^3.3.14",
+    "@types/express": "^4.17.17",
+    "@types/multer": "^1.4.7",
+    "@types/unzipper": "^0.10.5",
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "discord-oauth2": "^2.11.0",
+    "dockerode": "^3.3.4",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "express-rate-limit": "^6.7.0",
+    "express-validator": "^6.15.0",
+    "fast-glob": "^3.2.12",
+    "http": "^0.0.1-security",
+    "install": "^0.13.0",
+    "multer": "^1.4.5-lts.1",
+    "node-docker-api": "^1.1.22",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
+    "unzipper": "^0.10.11"
+  }
+}
