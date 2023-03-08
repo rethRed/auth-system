@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("MYSQL_DATABASE_URL")
+}
+
+model Users {
+  id String @id
+  email String @unique
+  password String
+}
+
+model ErrorLogs {
+  id String @id 
+  name String
+  message String
+  stack String
+  dateTimeOcorred DateTime
+}
