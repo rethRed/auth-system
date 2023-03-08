@@ -3,10 +3,10 @@ import { validateRequestBodyHelper } from "@/helper/validate"
 import { Router } from "express"
 import { Request, Response } from "express"
 import { body } from "express-validator"
-import { SigninService } from "./signin.service"
+import { SignUpService } from "./signup.service"
 
 export default (router: Router): void => {
-    router.post("/auth/signin", [
+    router.post("/auth/signup", [
         body("email")
         .exists().withMessage("email should be provided.")
         .isEmail().withMessage("wrong email format."),
@@ -19,22 +19,22 @@ export default (router: Router): void => {
         
         const { email, password } = req.body
 
-        const signinService = new SigninService()
-        const user = await signinService.execute({
+        const signupService = new SignUpService()
+        const user = await signupService.execute({
             email,
             password
         })
         const tokenInfo = { userId: user.id, email: user.email }
-        const accessToken = TokenManagementHelper.generateToken(tokenInfo)
-        const refreshToken = TokenManagementHelper.generateRefreshToken(tokenInfo)
+        const accessToken = await TokenManagementHelper.generateToken(tokenInfo)
+        const refreshToken = await TokenManagementHelper.generateRefreshToken(tokenInfo)
 
         res.cookie("token", accessToken)
         res.cookie("refreshToken", refreshToken)
 
-        const { password } = user
+        const { password: createdPassword, ...responseProps } = user
 
         res.json({
-
+            ...responseProps
         })
 
     })

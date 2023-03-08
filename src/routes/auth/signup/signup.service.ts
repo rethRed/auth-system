@@ -2,10 +2,12 @@ import { PrismaUserRepository } from "@/repository/prisma"
 import { Users } from "@prisma/client"
 import { UserAlreadyRegisteredError } from "./error"
 import Crypto from "crypto"
+import { PasswordHashHelper } from "@/helper/hash"
 
-export class SigninService {
+
+export class SignUpService {
     
-    async execute(props: SigninService.Input): Promise<SigninService.Output> {
+    async execute(props: SignUpService.Input): Promise<SignUpService.Output> {
 
         const prismaUserRepository = new PrismaUserRepository()
 
@@ -13,15 +15,18 @@ export class SigninService {
         if(foundUser){
             throw new UserAlreadyRegisteredError()
         }
+
+        const hashedPassword = await PasswordHashHelper.hash(props.password)
+
         return await prismaUserRepository.createUser({
             id: Crypto.randomUUID(),
             email: props.email,
-            password: props.password
+            password: hashedPassword
         })
     }
 }
 
-export namespace SigninService {
+export namespace SignUpService {
     export type Input = {
         email: string,
         password: string,
