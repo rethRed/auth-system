@@ -6,9 +6,9 @@ generator client {
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
-datasource db {
-  provider = "mysql"
-  url      = env("MYSQL_DATABASE_URL")
+datasource sqlite {
+  provider = "sqlite"
+  url =  "file:dev.db?mode=memory&cache=shared"
 }
 
 model Users {
@@ -19,8 +19,8 @@ model Users {
 
 model ErrorLogs {
   id String @id 
-  name String @db.Text
-  message String @db.Text
-  stack String @db.Text
+  name String 
+  message String 
+  stack String 
   dateTimeOcorred DateTime
 }
